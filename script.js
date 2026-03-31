@@ -154,12 +154,14 @@ const questions = [
 let currentQuestionIndex = 0;
 let score = 0;
 
+const metaEl = document.getElementById('question-meta');
 const questionEl = document.getElementById('question');
 const optionsEl = document.getElementById('options');
 const nextBtn = document.getElementById('next-btn');
 
 function loadQuestion() {
     const q = questions[currentQuestionIndex];
+    metaEl.innerText = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
     questionEl.innerText = q.question;
     optionsEl.innerHTML = '';
     nextBtn.style.display = 'none';
@@ -180,10 +182,13 @@ function selectOption(index) {
 
     if (index === q.answer) {
         buttons[index].style.background = "#d4edda";
+        buttons[index].style.borderColor = "#28a745";
         score++;
     } else {
         buttons[index].style.background = "#f8d7da";
+        buttons[index].style.borderColor = "#dc3545";
         buttons[q.answer].style.background = "#d4edda";
+        buttons[q.answer].style.borderColor = "#28a745";
     }
     
     const feedback = document.createElement('div');
@@ -198,8 +203,9 @@ nextBtn.onclick = () => {
     if (currentQuestionIndex < questions.length) {
         loadQuestion();
     } else {
-        questionEl.innerText = `Quiz Complete! Your final score is ${score}/${questions.length}.`;
-        optionsEl.innerHTML = '<p>Great job reviewing the Circulatory System!</p>';
+        metaEl.innerText = "Quiz Complete";
+        questionEl.innerText = `Final Score: ${score} / ${questions.length}`;
+        optionsEl.innerHTML = `<p style="text-align:center; font-size: 1.2rem;">${(score/questions.length * 100).toFixed(0)}%</p>`;
         nextBtn.style.display = 'none';
     }
 };
