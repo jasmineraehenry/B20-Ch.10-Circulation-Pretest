@@ -1,4 +1,60 @@
-body { font-family: sans-serif; background: #f4f4f4; display: flex; justify-content: center; padding: 50px; }
-#quiz-container { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); width: 100%; max-width: 600px; }
-button { margin-top: 20px; padding: 10px 20px; cursor: pointer; background: #28a745; color: white; border: none; border-radius: 5px; }
-.option-btn { display: block; width: 100%; margin: 10px 0; padding: 10px; text-align: left; background: #e9ecef; border: 1px solid #ddd; }
+/* General page settings */
+body { 
+    font-family: sans-serif; 
+    background-color: #f4f4f4; 
+    color: #000000; /* Forces main text to black */
+    display: flex; 
+    justify-content: center; 
+    padding: 20px;
+}
+
+/* The box holding the quiz */
+#quiz-container { 
+    background-color: #ffffff; 
+    color: #000000; /* Forces text inside the box to black */
+    padding: 30px; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+    width: 100%; 
+    max-width: 600px; 
+}
+
+/* Question text */
+#question {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #000000;
+    margin-bottom: 15px;
+}
+
+/* Option buttons */
+.option-btn { 
+    display: block; 
+    width: 100%; 
+    margin: 10px 0; 
+    padding: 12px; 
+    text-align: left; 
+    background-color: #eeeeee; 
+    color: #000000; /* Option text to black */
+    border: 1px solid #cccccc; 
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Next button stays blue with white text for contrast */
+#next-btn { 
+    margin-top: 20px; 
+    padding: 10px 20px; 
+    background-color: #007bff; 
+    color: #ffffff; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer;
+}
+
+/* Feedback/Rationale area */
+.feedback {
+    margin-top: 15px;
+    color: #000000;
+    font-style: italic;
+}
