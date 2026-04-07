@@ -3,103 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biology 20: Circulation Review</title>
+    <title>Biology 20: Circulation Mastery</title>
     <style>
+        :root {
+            --primary: #4f46e5; /* Indigo */
+            --primary-hover: #4338ca;
+            --bg: #f8fafc;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --white: #ffffff;
+            --correct: #10b981; /* Emerald */
+            --wrong: #ef4444; /* Rose */
+            --feedback-bg: #fffbeb;
+            --feedback-border: #f59e0b;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f2f5;
-            color: #000000;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
             display: flex;
             justify-content: center;
-            padding: 20px;
+            padding: 40px 20px;
             margin: 0;
+            line-height: 1.6;
         }
 
         #quiz-container {
-            background-color: #ffffff;
+            background-color: var(--white);
             width: 100%;
-            max-width: 650px;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            max-width: 700px;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
         }
 
         h1 { 
-            color: #000000; 
-            border-bottom: 2px solid #eeeeee; 
-            padding-bottom: 10px; 
+            font-size: 1.8rem;
+            color: var(--text-main);
+            margin-bottom: 8px;
             margin-top: 0;
         }
 
         #progress { 
-            margin-bottom: 15px; 
-            font-weight: bold; 
-            color: #444444; 
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 24px;
+            display: block;
         }
 
         #question-text { 
-            font-size: 1.25rem; 
-            font-weight: 600; 
-            margin-bottom: 20px; 
-            color: #000000; 
-            line-height: 1.4;
+            font-size: 1.35rem; 
+            font-weight: 700; 
+            margin-bottom: 25px; 
+            color: var(--text-main);
         }
 
         .option-btn {
             display: block;
             width: 100%;
-            padding: 15px;
-            margin-bottom: 10px;
-            border: 2px solid #dddddd;
-            border-radius: 8px;
-            background: #ffffff;
-            color: #000000;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            background: var(--white);
+            color: var(--text-main);
             text-align: left;
             font-size: 1rem;
+            font-weight: 500;
             cursor: pointer;
-            transition: 0.2s;
+            transition: all 0.2s ease;
         }
 
         .option-btn:hover:not([disabled]) { 
-            background-color: #f8f9fa; 
+            border-color: var(--primary);
+            background-color: #f5f3ff;
         }
 
-        .correct { background-color: #d4edda !important; border-color: #28a745 !important; font-weight: bold; }
-        .wrong { background-color: #f8d7da !important; border-color: #dc3545 !important; }
+        .correct { 
+            background-color: #ecfdf5 !important; 
+            border-color: var(--correct) !important; 
+            color: #065f46 !important;
+        }
+
+        .wrong { 
+            background-color: #fef2f2 !important; 
+            border-color: var(--wrong) !important; 
+            color: #991b1b !important;
+        }
 
         #feedback-box {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #fff3cd;
-            border-left: 5px solid #ffc107;
-            border-radius: 4px;
+            margin-top: 25px;
+            padding: 20px;
+            background-color: var(--feedback-bg);
+            border-left: 6px solid var(--feedback-border);
+            border-radius: 8px;
+            animation: slideIn 0.3s ease-out;
         }
 
-        #rationale-text { 
-            color: #000000; 
-            line-height: 1.5; 
-            margin-bottom: 15px; 
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
+
+        #rationale-text { margin-bottom: 20px; }
 
         #next-btn, .restart-btn {
-            background-color: #000000;
-            color: #ffffff;
+            background-color: var(--primary);
+            color: var(--white);
             border: none;
-            padding: 12px 25px;
-            border-radius: 5px;
+            padding: 14px 28px;
+            border-radius: 10px;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: background 0.2s;
         }
 
+        #next-btn:hover { background-color: var(--primary-hover); }
+
         .hidden { display: none; }
-        #results-screen { text-align: center; }
+
+        /* Review Styles */
+        .review-item {
+            border-bottom: 1px solid #e2e8f0;
+            padding: 20px 0;
+            text-align: left;
+        }
+        .review-q { font-weight: 700; margin-bottom: 5px; }
+        .review-a { color: var(--correct); font-weight: 600; }
+        .review-r { font-size: 0.9rem; color: var(--text-muted); margin-top: 5px; }
     </style>
 </head>
 <body>
 
     <div id="quiz-container">
+        <span id="progress">Biology 20 Prep</span>
         <h1>Circulatory System Review</h1>
-        <div id="progress">Loading quiz...</div>
         
         <div id="quiz-content">
             <p id="question-text"></p>
@@ -107,14 +150,21 @@
             
             <div id="feedback-box" class="hidden">
                 <p id="rationale-text"></p>
-                <button id="next-btn">Next Question</button>
+                <button id="next-btn">Next Question →</button>
             </div>
         </div>
 
-        <div id="results-screen" class="hidden">
-            <h2>Quiz Complete!</h2>
-            <p id="final-score" style="font-size: 1.5rem; font-weight: bold;"></p>
-            <button class="restart-btn" onclick="location.reload()">Restart Quiz</button>
+        <div id="results-screen" class="hidden" style="text-align: center;">
+            <h2 style="font-size: 2rem;">Quiz Complete!</h2>
+            <div id="final-score" style="font-size: 3rem; font-weight: 800; color: var(--primary); margin: 10px 0;"></div>
+            
+            <div id="missed-questions-container" style="margin-top: 40px;">
+                <h3 style="border-bottom: 2px solid var(--wrong); padding-bottom: 10px; color: var(--wrong);">Questions to Review</h3>
+                <div id="missed-list"></div>
+            </div>
+
+            <br><br>
+            <button class="restart-btn" onclick="location.reload()">Try Again</button>
         </div>
     </div>
 
@@ -149,10 +199,9 @@
 
         let currentQ = 0;
         let score = 0;
+        let missedQuestions = [];
 
-        window.onload = function() {
-            loadQuestion();
-        };
+        window.onload = function() { loadQuestion(); };
 
         function loadQuestion() {
             const data = quizData[currentQ];
@@ -181,6 +230,7 @@
                 score++;
             } else {
                 btn.classList.add("wrong");
+                missedQuestions.push(data); // Add to mistake tracker
                 allBtns.forEach(function(b) {
                     if (b.innerText === data.a) b.classList.add("correct");
                 });
@@ -203,8 +253,23 @@
             document.getElementById("quiz-content").classList.add("hidden");
             document.getElementById("progress").classList.add("hidden");
             document.getElementById("results-screen").classList.remove("hidden");
+            
             const pct = Math.round((score / quizData.length) * 100);
-            document.getElementById("final-score").innerText = "You scored " + score + " out of 25 (" + pct + "%)";
+            document.getElementById("final-score").innerText = pct + "%";
+
+            const missedList = document.getElementById("missed-list");
+            if (missedQuestions.length === 0) {
+                document.getElementById("missed-questions-container").innerHTML = "<p style='color:var(--correct); font-weight:bold;'>Perfect Score! You've mastered this unit.</p>";
+            } else {
+                missedQuestions.forEach(function(mq) {
+                    const item = document.createElement("div");
+                    item.classList.add("review-item");
+                    item.innerHTML = "<div class='review-q'>" + mq.q + "</div>" +
+                                     "<div class='review-a'>Correct Answer: " + mq.a + "</div>" +
+                                     "<div class='review-r'>" + mq.r + "</div>";
+                    missedList.appendChild(item);
+                });
+            }
         }
     </script>
 </body>
