@@ -6,20 +6,20 @@
     <title>Biology 20: Circulation Mastery</title>
     <style>
         :root {
-            --primary: #4f46e5; /* Indigo */
+            --primary: #4f46e5;
             --primary-hover: #4338ca;
             --bg: #f8fafc;
-            --text-main: #000000; /* Strictly black text */
+            --text-main: #000000;
             --text-muted: #334155;
             --white: #ffffff;
-            --correct: #10b981; /* Emerald */
-            --wrong: #ef4444; /* Rose */
+            --correct: #10b981;
+            --wrong: #ef4444;
             --feedback-bg: #fffbeb;
             --feedback-border: #f59e0b;
         }
 
         body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
             background-color: var(--bg);
             color: var(--text-main);
             display: flex;
@@ -56,7 +56,7 @@
         }
 
         #question-text { 
-            font-size: 1.35rem; 
+            font-size: 1.3rem; 
             font-weight: 700; 
             margin-bottom: 25px; 
             color: var(--text-main);
@@ -103,12 +103,6 @@
             border-left: 6px solid var(--feedback-border);
             border-radius: 8px;
             color: var(--text-main);
-            animation: slideIn 0.3s ease-out;
-        }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         #rationale-text { 
@@ -125,14 +119,12 @@
             cursor: pointer;
             font-weight: 700;
             font-size: 1rem;
-            transition: background 0.2s;
         }
 
         #next-btn:hover, .restart-btn:hover { background-color: var(--primary-hover); }
 
-        .hidden { display: none; }
+        .hidden { display: none !important; }
 
-        /* Review Styles */
         .review-item {
             border-bottom: 1px solid #e2e8f0;
             padding: 20px 0;
@@ -151,12 +143,12 @@
         <h1>Circulatory System Review</h1>
         
         <div id="quiz-content">
-            <p id="question-text"></p>
+            <p id="question-text">Loading questions...</p>
             <div id="options-container"></div>
             
             <div id="feedback-box" class="hidden">
                 <p id="rationale-text"></p>
-                <button id="next-btn">Next Question →</button>
+                <button id="next-btn" type="button">Next Question →</button>
             </div>
         </div>
 
@@ -170,12 +162,12 @@
             </div>
 
             <br><br>
-            <button class="restart-btn" onclick="location.reload()">Try Again</button>
+            <button class="restart-btn" type="button" onclick="location.reload()">Try Again</button>
         </div>
     </div>
 
     <script>
-        const quizData = [
+        var quizData = [
             { q: "A patient presents with a weakened left ventricle. Which consequence is expected?", a: "Reduced blood pressure in the aorta", options: ["Decreased oxygenation in lungs", "Reduced blood pressure in the aorta", "Increased venous return", "CO2 buildup in pulmonary veins"], r: "The left ventricle pumps to the systemic circuit; weakness lowers the force entering the aorta." },
             { q: "What is the primary role of the SA node?", a: "Initiate electrical impulse for atrial contraction", options: ["Delay signal for filling", "Initiate electrical impulse for atrial contraction", "Ensure bottom-upward contraction", "Prevent backflow to vena cava"], r: "The SA node is the natural pacemaker that triggers the start of the cardiac cycle." },
             { q: "During exercise, precapillary sphincters relax to:", a: "Increase surface area for exchange", options: ["Increase peripheral resistance", "Increase surface area for exchange", "Divert blood from skin", "Protect capillaries"], r: "Opening sphincters allows blood to flood the capillary bed, maximizing diffusion." },
@@ -184,4 +176,108 @@
             { q: "During a myocardial infarction (heart attack), what is the immediate cause of cardiac muscle tissue death?", a: "A blood clot blocks a coronary artery, starving the myocardium of oxygen", options: ["A blood clot blocks a coronary artery, starving the myocardium of oxygen", "The SA node stops sending electrical impulses to the atria", "The bicuspid valve ruptures, causing blood to pool in the lungs", "High blood pressure bursts the wall of the right atrium"], r: "Cardiac muscle cells have high metabolic demands; when a clot (thrombus) blocks a coronary artery, the tissue downstream is deprived of oxygen and begins to die." },
             { q: "How do veins differ structurally from arteries?", a: "Larger lumens and one-way valves", options: ["Thicker elastic layers", "Larger lumens and one-way valves", "Lack of endothelium", "Lack of smooth muscle"], r: "Larger lumens reduce resistance and valves prevent backflow in low-pressure systems." },
             { q: "A patient's blood test reveals both anemia (low red blood cells) and a significantly low white blood cell count. Which combination of symptoms would they most likely experience?", a: "Chronic fatigue and frequent, severe infections", options: ["Chronic fatigue and frequent, severe infections", "High blood pressure and rapid blood clotting", "Increased blood viscosity and excessive swelling", "Rapid heart rate and immediate carbon monoxide poisoning"], r: "Anemia reduces oxygen delivery to tissues for cellular respiration (causing fatigue), while low white blood cells impair the body's ability to fight off pathogens (leading to frequent infections)." },
-            { q: "Where does the signal go immediately after the AV node?", a: "Bundle of His", options: ["Atrial walls", "Bundle of His", "Semilunar valves", "SA node"], r: "The
+            { q: "Where does the signal go immediately after the AV node?", a: "Bundle of His", options: ["Atrial walls", "Bundle of His", "Semilunar valves", "SA node"], r: "The signal travels down the Bundle of His in the septum toward the bottom of the heart." },
+            { q: "How does the lymphatic system support circulation?", a: "Returning leaked plasma proteins and fluids", options: ["Producing RBCs", "Returning leaked plasma proteins and fluids", "Oxygenating blood", "Acting as a pump"], r: "It collects excess interstitial fluid and returns it to the subclavian veins." },
+            { q: "During ventricular diastole, which combination of valve positions allows the ventricles to fill with blood?", a: "AV valves are open and semilunar valves are closed", options: ["AV valves are open and semilunar valves are closed", "AV valves are closed and semilunar valves are open", "Both AV and semilunar valves are open", "Both AV and semilunar valves are closed"], r: "During diastole, the ventricles relax and pressure drops, allowing blood to flow in from the atria through open AV valves while closed semilunar valves prevent backflow from the arteries." },
+            { q: "Why do Purkinje fibers stimulate the bottom of the heart first?", a: "To push blood upward toward exit valves", options: ["To push blood upward toward exit valves", "To open AV valves faster", "To reduce pressure", "To allow filling"], r: "Contraction from the bottom ensures blood is squeezed up and out of the heart." },
+            { q: "Path from Superior Vena Cava to lungs:", a: "RA -> Tricuspid -> RV -> Pulmonary Valve", options: ["RA -> Tricuspid -> RV -> Pulmonary Valve", "RA -> Bicuspid -> RV", "LA -> Mitral -> LV", "RV -> RA -> Lung"], r: "This follows the deoxygenated path through the right side of the heart." },
+            { q: "Adrenaline increases heart rate by:", a: "Increasing SA node firing frequency", options: ["Bypassing the SA node", "Increasing SA node firing frequency", "Increasing AV delay", "Stopping Purkinje fibers"], r: "Adrenaline makes the pacemaker reach its firing threshold faster." },
+            { q: "Primary role of coronary arteries:", a: "Supply heart muscle with oxygen", options: ["Transport blood to lungs", "Supply heart muscle with oxygen", "Regulate SA node", "Carry blood from brain"], r: "The heart is a muscle and requires its own dedicated nutrient supply." },
+            { q: "During ventricular systole:", a: "Ventricles contract; semilunar valves open", options: ["Atria contract", "Ventricles contract; semilunar valves open", "Heart relaxes", "AV valves open"], r: "Ventricular contraction forces blood out through the pulmonary and aortic valves." },
+            { q: "AV node delay is essential because:", a: "It allows atria to finish filling ventricles", options: ["It recharges the SA node", "It allows atria to finish filling ventricles", "It prevents fast heart rate", "It keeps aortic valve closed"], r: "It prevents the ventricles from pumping before they are fully loaded with blood." },
+            { q: "In 120/80 mmHg, '80' represents:", a: "Pressure during ventricular relaxation", options: ["Atrial pressure", "Venous pressure", "Pressure during ventricular relaxation", "Heart rate"], r: "80 is the diastolic pressure—the baseline arterial pressure between beats." },
+            { q: "Why is the left ventricle wall thicker?", a: "To overcome systemic resistance", options: ["Pumps larger volume", "To overcome systemic resistance", "Pumps against gravity", "Oxygen is heavier"], r: "The systemic circuit is much longer and higher-resistance than the pulmonary circuit." },
+            { q: "How does atherosclerosis cause heart attacks?", a: "Narrows coronary arteries, blocking oxygen", options: ["Plaque in pulmonary veins", "Narrows coronary arteries, blocking oxygen", "Fatty SA node", "Hardens bicuspid valve"], r: "Blocked coronary arteries starve the heart muscle of oxygen, causing tissue death." },
+            { q: "The 'lub' sound is caused by:", a: "AV valve closure", options: ["Semilunar closure", "AV valve closure", "Atrial contraction", "Blood in artery"], r: "The first sound is the mechanical closure of the AV valves during systole." },
+            { q: "Blood velocity is lowest in:", a: "Capillaries", options: ["Arteries", "Capillaries", "Veins", "Aorta"], r: "Low velocity in capillaries provides time for nutrient and gas exchange." },
+            { q: "Function of chordae tendineae:", a: "Prevent AV valves from flipping into atria", options: ["Pull AV valves open", "Prevent AV valves from flipping into atria", "Conduct signals", "Help relaxation"], r: "They tether the valve flaps against high pressure during contraction." },
+            { q: "Lymphatic blockage causes swelling because:", a: "Filtered fluid cannot return to blood", options: ["High arterial pressure", "Filtered fluid cannot return to blood", "Heart pumps more", "RBCs escape"], r: "The lymphatic system drains excess fluid; a block causes pooling in tissues." },
+            { q: "Correct conduction order:", a: "SA -> AV -> His -> Purkinje", options: ["AV -> SA -> His", "SA -> AV -> His -> Purkinje", "Purkinje -> His -> SA", "SA -> His -> AV"], r: "The signal starts at the SA node and travels down to the Purkinje fibers." }
+        ];
+
+        var currentQ = 0;
+        var score = 0;
+        var missedQuestions = [];
+
+        function loadQuestion() {
+            var data = quizData[currentQ];
+            document.getElementById("progress").innerText = "Question " + (currentQ + 1) + " of " + quizData.length;
+            document.getElementById("question-text").innerText = data.q;
+            var container = document.getElementById("options-container");
+            container.innerHTML = "";
+            document.getElementById("feedback-box").classList.add("hidden");
+
+            for (var i = 0; i < data.options.length; i++) {
+                (function(opt) {
+                    var btn = document.createElement("button");
+                    btn.type = "button";
+                    btn.innerText = opt;
+                    btn.className = "option-btn";
+                    btn.onclick = function() { checkAnswer(opt, btn); };
+                    container.appendChild(btn);
+                })(data.options[i]);
+            }
+        }
+
+        function checkAnswer(selected, btn) {
+            var data = quizData[currentQ];
+            var allBtns = document.querySelectorAll(".option-btn");
+            for (var i = 0; i < allBtns.length; i++) {
+                allBtns[i].disabled = true;
+            }
+
+            if (selected === data.a) {
+                btn.classList.add("correct");
+                score++;
+            } else {
+                btn.classList.add("wrong");
+                missedQuestions.push(data);
+                for (var j = 0; j < allBtns.length; j++) {
+                    if (allBtns[j].innerText === data.a) {
+                        allBtns[j].classList.add("correct");
+                    }
+                }
+            }
+
+            document.getElementById("rationale-text").innerHTML = "<strong>Feedback:</strong> " + data.r;
+            document.getElementById("feedback-box").classList.remove("hidden");
+        }
+
+        document.getElementById("next-btn").onclick = function() {
+            currentQ++;
+            if (currentQ < quizData.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        };
+
+        function showResults() {
+            document.getElementById("quiz-content").classList.add("hidden");
+            document.getElementById("progress").classList.add("hidden");
+            document.getElementById("results-screen").classList.remove("hidden");
+            
+            var pct = Math.round((score / quizData.length) * 100);
+            document.getElementById("final-score").innerText = score + " / " + quizData.length + " (" + pct + "%)";
+
+            var missedList = document.getElementById("missed-list");
+            if (missedQuestions.length === 0) {
+                document.getElementById("missed-questions-container").innerHTML = "<p style='color:#065f46; font-weight:bold;'>Perfect Score! You've mastered this unit.</p>";
+            } else {
+                for (var i = 0; i < missedQuestions.length; i++) {
+                    var mq = missedQuestions[i];
+                    var item = document.createElement("div");
+                    item.className = "review-item";
+                    item.innerHTML = "<div class='review-q'>" + mq.q + "</div>" +
+                                     "<div class='review-a'>Correct Answer: " + mq.a + "</div>" +
+                                     "<div class='review-r'>" + mq.r + "</div>";
+                    missedList.appendChild(item);
+                }
+            }
+        }
+
+        // Run immediately since script is placed at the bottom of the body
+        loadQuestion();
+    </script>
+</body>
+</html>
